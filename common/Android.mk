@@ -145,6 +145,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES += $(src_files)
 LOCAL_C_INCLUDES += $(c_includes) $(optional_android_logging_includes)
 LOCAL_CFLAGS += $(local_cflags) -DPIC -fPIC
+ifeq ($(TARGET_OS),gnu_linux)
 LOCAL_SHARED_LIBRARIES += libdl $(optional_android_logging_libraries)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libicuuc
@@ -152,7 +153,9 @@ LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
 LOCAL_REQUIRED_MODULES += icu-data
 # Use "-include" to not fail apps_only build.
 -include abi/cpp/use_rtti.mk
+ifneq ($(TARGET_OS),gnu_linux)
 -include external/stlport/libstlport.mk
+endif
 include $(BUILD_SHARED_LIBRARY)
 
 #
@@ -178,8 +181,10 @@ endif
 #
 
 include $(CLEAR_VARS)
+ifneq ($(TARGET_OS),gnu_linux)
 LOCAL_SDK_VERSION := 9
 LOCAL_NDK_STL_VARIANT := stlport_static
+endif
 LOCAL_C_INCLUDES += $(c_includes)
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)
 LOCAL_CPP_FEATURES := rtti

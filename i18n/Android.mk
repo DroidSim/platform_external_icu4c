@@ -128,7 +128,9 @@ LOCAL_MODULE := libicui18n
 LOCAL_ADDITIONAL_DEPENDENCIES += $(LOCAL_PATH)/Android.mk
 # Use "-include" to not fail apps_only build.
 -include abi/cpp/use_rtti.mk
+ifneq ($(TARGET_OS),gnu_linux)
 -include external/stlport/libstlport.mk
+endif
 include $(BUILD_SHARED_LIBRARY)
 
 
