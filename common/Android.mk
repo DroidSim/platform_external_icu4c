@@ -145,7 +145,6 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES += $(src_files)
 LOCAL_C_INCLUDES += $(c_includes) $(optional_android_logging_includes)
 LOCAL_CFLAGS += $(local_cflags) -DPIC -fPIC
-ifeq ($(TARGET_OS),gnu_linux)
 LOCAL_SHARED_LIBRARIES += libdl $(optional_android_logging_libraries)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libicuuc
